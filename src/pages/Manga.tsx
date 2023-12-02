@@ -40,6 +40,9 @@ const MangaPage: React.FC = () => {
                     }
                   }
             }
+        }else{
+            const updatedMangas = [manga];
+            localStorage.setItem("mangas", JSON.stringify(updatedMangas));
         }
     
         // Jika manga belum ada, tambahkan ke dalam array jika sudah ada
