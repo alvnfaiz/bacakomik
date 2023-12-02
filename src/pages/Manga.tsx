@@ -26,19 +26,18 @@ const MangaPage: React.FC = () => {
         // Dapatkan array manga dari localStorage atau gunakan array kosong jika tidak ada
         const storedMangas = JSON.parse(localStorage.getItem("mangas")) || [];
     
-        // Periksa apakah manga sudah ada dalam array atau belum
-        const isMangaAlreadyBookmarked = storedMangas.some((m) => m?.url === manga?.url);
+
     
         // Jika manga belum ada, tambahkan ke dalam array jika sudah ada
-        if (!isMangaAlreadyBookmarked) {
+        if (!isBookmarked) {
           const updatedMangas = [...storedMangas, manga];
     
           // Simpan kembali array manga ke localStorage mangas[source]
           localStorage.setItem("mangas", JSON.stringify(updatedMangas));
         }else{
           // Jika manga sudah ada, hapus dari array
-          if (isMangaAlreadyBookmarked) {
-            const updatedMangas = storedMangas.filter((m) => m?.url !== manga?.url);
+          if (isBookmarked) {
+            const updatedMangas = storedMangas.filter((m:any) => m?.url !== manga?.url);
             localStorage.setItem("mangas", JSON.stringify(updatedMangas));
           }
         }
