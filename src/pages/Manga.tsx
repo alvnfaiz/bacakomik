@@ -179,7 +179,7 @@ const MangaPage: React.FC = () => {
                             <Link
                                 key={index}
                                 to={`/manga/${source}/${url}/${item.url}`}
-                                className="flex items-center gap-4 p-2 px-4 border-2 border-transparent rounded-lg hover:border-black hover:bg-gray-100"
+                                className="flex items-center gap-4 p-2 px-4 border-2 border-transparent rounded-lg hover:border-purple-500 visited:bg-green-100 visited:text-green-500"
                             >
                                 <Book />
                                 <p className="text-sm font-semibold">
