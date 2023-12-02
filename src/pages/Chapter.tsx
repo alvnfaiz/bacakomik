@@ -59,7 +59,7 @@ const ChapterPage: React.FC = () => {
     }
 
     return chapterData && (
-        <GuestLayout>
+        <GuestLayout className="px-0">
             {manga && (
                 <CardCoy
                     manga={manga}
@@ -147,13 +147,14 @@ export const CardCoy: React.FC<{
 
                         <p className="mt-4">
                             <select
-                                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                                className="w-full px-4 py-2 bg-white border rounded-lg focus:outline-none focus:ring-blue-600 focus:border-transparent ring-blue-300 ring"
                                 onChange={(e) => window.location.href = `/manga/${source}/${url}/${e.target.value}`}
                             >
                                 {manga?.chapters.map((item, index) => (
                                     <option
                                         key={index}
                                         value={item.url}
+                                        className="text-blue-500 bg-white"
                                         selected={item.url === chapter}
                                     >
                                         {item.title}

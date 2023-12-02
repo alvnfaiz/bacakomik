@@ -24,7 +24,7 @@ const SourceButton: React.FC = () => {
         <>
             <Button
                 type="button"
-                className=""
+                className="text-blue-500 bg-blue-100"
                 onClick={() => setOpen((prev) => !prev)}
             >
                 Source
@@ -42,9 +42,7 @@ const SourceButton: React.FC = () => {
                                 <Button
                                     key={index}
                                     type="button"
-                                    // if localStorage source = source, then add bg-green-500
-                                    // else add bg-indigo-500
-                                    className={`w-48 m-1 ${localStorage.getItem("source") === source ? "bg-green-500 hover:bg-green-600" : "bg-indigo-500"}`}
+                                    className={`w-48 m-1 ${localStorage.getItem("source") === source ? "bg-pink-100 text-pink-500" : "bg-blue-500"}`}
                                     onClick={() => {
                                         localStorage.setItem("source", source)
                                         window.location.reload()

@@ -14,7 +14,7 @@ const Header: React.FC = () => {
                     </Link>
 
                     <div className="items-center hidden gap-2 md:flex">
-                        <Link to="/" className="px-4 py-2 text-sm font-semibold bg-gray-200 rounded-lg hover:bg-indigo-500 hover:text-white">Home</Link>
+                        <Link to="/" className="px-4 py-2 text-sm font-semibold text-blue-500 bg-blue-100 rounded-lg hover:bg-blue-500 hover:text-white">Home</Link>
                     </div>
                 </div>
 

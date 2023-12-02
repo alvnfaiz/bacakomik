@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import GuestLayout from "../layouts/GuestLayout"
 import ScrapeService, { ListManga } from "../services/scrape.service"
 import { useQuery } from "@tanstack/react-query"
-import { useSearchParams } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import Button from "../components/Button"
 import CardManga from "../components/CardManga"
 import { Loader } from "react-feather"
@@ -51,6 +51,9 @@ const Home: React.FC = () => {
 
     return (
         <GuestLayout>
+            <Link to="https://trakteer.id/sengkomik" target="_blank">
+                <div className="w-full py-6 text-xl text-center text-white bg-blue-500 rounded-md hover:bg-blue-200 hover:text-blue-500">Support di Trakteer</div>
+            </Link>
             <h1 className="text-xl font-bold">
                 Projects Update
             </h1>
@@ -74,12 +77,23 @@ const Home: React.FC = () => {
                 <Button
                     onClick={() => setPage((prev) => prev - 1)}
                     disabled={page === 1}
+                    className="text-blue-500 bg-blue-100 hover:text-blue-100 hover:bg-blue-500"
                 >
                     Previous
                 </Button>
+                <Link to="https://trakteer.id/sengkomik" target="_blank">
+                    <img
+                    id="wse-buttons-preview"
+                    src="https://cdn.trakteer.id/images/embed/trbtn-red-1.png?date=18-11-2023"
+                    height="40"
+                    style={{ border: '0px', height: '40px' }}
+                    alt="Trakteer Saya"
+                    />
+                </Link>
                 <Button
                     type="button"
                     onClick={() => setPage((prev) => prev + 1)}
+                    className="text-blue-500 bg-blue-100 hover:text-blue-100 hover:bg-blue-500"
                     disabled={isLoading || data && data?.data.length === 0}
                 >
                     Next

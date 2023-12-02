@@ -11,7 +11,7 @@ const SearchButton: React.FC = () => {
             <input
                 type="text"
                 placeholder="Search manga..."
-                className="md:block hidden px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 focus:outline-none focus:ring focus:ring-indigo-200"
+                className="hidden px-4 py-2 bg-gray-100 rounded-lg md:block dark:bg-gray-800 focus:outline-none focus:ring focus:ring-indigo-200"
                 defaultValue={searchParams.get("search") || ""}
                 onKeyUp={(e) => {
                     if (e.key === "Enter") {
@@ -23,7 +23,7 @@ const SearchButton: React.FC = () => {
             <div className="relative">
                 <Button
                     type="button"
-                    className="md:hidden block"
+                    className="block text-blue-500 bg-blue-100 md:hidden"
                     onClick={() => setOpen((prev) => !prev)}
                 >
                     <Search size={24} />
@@ -31,11 +31,11 @@ const SearchButton: React.FC = () => {
 
             </div>
             <div className={`absolute top-16 left-0 z-50 w-full ${open ? "block" : "hidden"}`}>
-                <div className="flex items-center justify-center w-full bg-white py-2 px-4">
+                <div className="flex items-center justify-center w-full px-4 py-2 bg-white">
                     <input
                         type="text"
                         placeholder="Search manga..."
-                        className="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 focus:outline-none focus:ring focus:ring-indigo-200 w-full"
+                        className="w-full px-4 py-2 bg-gray-100 rounded-lg dark:bg-gray-800 focus:outline-none focus:ring focus:ring-indigo-200"
                         defaultValue={searchParams.get("search") || ""}
                         onKeyUp={(e) => {
                             if (e.key === "Enter") {

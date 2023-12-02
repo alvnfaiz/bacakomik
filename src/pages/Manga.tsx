@@ -7,7 +7,7 @@ import { Book, Loader } from "react-feather"
 import Card from "../components/Card"
 import { Link } from "react-router-dom"
 import Button from "../components/Button"
-
+import { Helmet } from 'react-helmet';
 const MangaPage: React.FC = () => {
     const params = useParams()
     const [manga, setManga] = useState<Manga | null>(null)
@@ -109,14 +109,14 @@ const MangaPage: React.FC = () => {
                                     alt={manga?.title}
                                     className="object-cover w-48 h-64 mx-0 rounded-lg"
                                 />
-                                <div className="absolute top-0 left-0 p-1 font-bold text-white rounded-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+                                <div className="absolute top-0 left-0 p-1 font-bold text-white rounded-lg bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500">
                                     {manga?.type}
                                 </div>
                             </div>
         
                             <Button
                                 type="button"
-                                className={`flex gap-4 w-48 my-1 ${!isBookmarked ? "bg-green-500 hover:bg-green-600" : "bg-red-500 hover:bg-red-600"}`}
+                                className={`flex gap-4 w-48 my-1 ${!isBookmarked ? "bg-blue-500 hover:bg-blue-600" : "bg-red-100 hover:bg-red-500 text-red-500 hover:text-white"}`}
                                 onClick={() => {
                                     handleBookmarkClick();
                                 }}
@@ -173,13 +173,15 @@ const MangaPage: React.FC = () => {
                     <h1 className="text-xl font-bold">
                         Chapters
                     </h1>
-
+                    <div className="w-full p-6 mt-2 bg-emerald-200">
+                        Jika pada chapter berwarna hijau, berarti kalian sudah pernah membuka chapter tersebut
+                    </div>
                     <div className="flex flex-col gap-2 mt-4">
                         {manga.chapters.map((item, index) => (
                             <Link
                                 key={index}
                                 to={`/manga/${source}/${url}/${item.url}`}
-                                className="flex items-center gap-4 p-2 px-4 border-2 border-transparent rounded-lg hover:border-purple-500 visited:bg-purple-100 visited:text-purple-500"
+                                className="flex items-center gap-4 p-2 px-4 text-blue-500 bg-blue-100 border-2 border-transparent rounded-lg hover:text-white hover:bg-blue-500 hover:border-blue-500 visited:bg-emerald-100 visited:text-emerald-500 hover:visited:text-white hover:visited:bg-emerald-500 hover:visited:border-emerald-500"
                             >
                                 <Book />
                                 <p className="text-sm font-semibold">
