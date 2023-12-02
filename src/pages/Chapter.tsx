@@ -132,7 +132,7 @@ export const CardCoy: React.FC<{
             <Card>
                 <div className="flex items-center justify-between gap-4">
                     <img
-                        src={manga.thumbnail?manga.thumbnail:`https://placehold.co/200x300/fff/0ea5e9?text=${manga.title}`}
+                        src={manga?.thumbnail?manga?.thumbnail:`https://placehold.co/200x300/fff/0ea5e9?text=${manga?.title}`}
                         about={manga?.title}
                         className="flex-shrink-0 rounded-lg w-14"
                     />
