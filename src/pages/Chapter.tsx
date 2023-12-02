@@ -135,7 +135,7 @@ export const CardCoy: React.FC<{
 
         return (
             <Card>
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
                     <img
                         src={manga?.thumbnail?manga?.thumbnail:`https://placehold.co/200x300/fff/0ea5e9?text=${manga?.title}`}
                         about={manga?.title}
@@ -174,7 +174,7 @@ export const CardCoy: React.FC<{
                             type="button"
                             disabled={prevURL === null}
                             onClick={() => window.location.href = `/manga/${source}/${url}/${prevURL}`}
-                            className="!px-2"
+                            className="!px-2 bg-blue-500 text-white hover:bg-blue-100 hover:text-blue-500"
                         >
                             <ChevronLeft size={20} />
                         </Button>
@@ -182,7 +182,7 @@ export const CardCoy: React.FC<{
                             type="button"
                             disabled={nextURL === null}
                             onClick={() => window.location.href = `/manga/${source}/${url}/${nextURL}`}
-                            className="!px-2"
+                            className="!px-2 bg-blue-500 text-white hover:bg-blue-100 hover:text-blue-500"
                         >
                             <ChevronRight size={20} />
                         </Button>
