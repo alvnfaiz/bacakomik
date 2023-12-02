@@ -10,7 +10,7 @@ const Header: React.FC = () => {
             <div className="flex items-center justify-between w-full mx-auto max-w-7xl">
                 <div className="flex items-center gap-4">
                     <Link to="/">
-                        <h1 className="text-2xl font-bold">Baca Komik</h1>
+                        <h1 className="text-2xl font-bold text-blue-500">Baca Komik</h1>
                     </Link>
 
                     <div className="items-center hidden gap-2 md:flex">
