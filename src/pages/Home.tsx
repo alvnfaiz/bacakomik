@@ -32,7 +32,7 @@ const Home: React.FC = () => {
     })
 
     useEffect(() => {
-        setSource(localStorage.getItem("source") || "komikcast")
+        setSource(localStorage.getItem("source") || "komikindo")
     }, [])
 
     useEffect(() => {
