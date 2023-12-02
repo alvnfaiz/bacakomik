@@ -3,10 +3,10 @@ import Header from "../components/Header";
 
 const GuestLayout: React.FC<PropsWithChildren> = ({ children }) => {
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-slate-900 text-slate-900 dark:text-white">
+        <div className="min-h-screen bg-gray-50 dark:bg-slate-900 text-slate-900 dark:text-white">
             <Header />
 
-            <main className="max-w-7xl mx-auto p-4">
+            <main className="p-4 mx-auto max-w-7xl">
                 {children}
             </main>
         </div>

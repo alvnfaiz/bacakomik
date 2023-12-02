@@ -34,14 +34,15 @@ const SourceButton: React.FC = () => {
             <div className={`fixed inset-0 w-full h-full z-50 ${open ? "block" : "hidden"}`}>
                 <div className="flex items-center justify-center h-screen overflow-auto">
                     <Card className="w-2/3 overflow-auto">
-                        <h1 className="text-xl font-bold mb-4">
+                        <h1 className="mb-4 text-xl font-bold">
                             Select Sources
                         </h1>
-                        <div className="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-2 grid-cols-2 gap-4">
+                        <div className="flex flex-wrap flex-basis">
                             {sources.map((source, index) => (
                                 <Button
                                     key={index}
                                     type="button"
+                                    className="w-48 m-1"
                                     onClick={() => {
                                         localStorage.setItem("source", source)
                                         window.location.reload()
@@ -51,6 +52,13 @@ const SourceButton: React.FC = () => {
                                 </Button>
                             ))}
                         </div>
+                        <Button
+                type="button"
+                className="my-4 bg-red-500"
+                onClick={() => setOpen((prev) => !prev)}
+            >
+                Close
+            </Button>
                     </Card>
                 </div>
             </div>

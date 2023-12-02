@@ -32,7 +32,7 @@ const Home: React.FC = () => {
     })
 
     useEffect(() => {
-        setSource(localStorage.getItem("source") || "komiku")
+        setSource(localStorage.getItem("source") || "komikcast")
     }, [])
 
     useEffect(() => {
@@ -43,7 +43,7 @@ const Home: React.FC = () => {
 
     if (isLoading) {
         return (
-            <div className="min-h-screen w-full flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center w-full min-h-screen">
                 <Loader className="animate-spin" />
             </div>
         )
@@ -55,14 +55,14 @@ const Home: React.FC = () => {
                 Projects Update
             </h1>
 
-            <div className="mt-4 w-full">
-                <div className="grid lg:grid-cols-5 md:grid-cols-4 grid-cols-2 gap-4">
+            <div className="w-full mt-4">
+                <div className="flex flex-wrap justify-between gap-y-6">
                     {mangas.map((manga, index) => (
                         <CardManga key={index} manga={manga} />
                     ))}
                 </div>
                 {mangas.length === 0 && (
-                    <div className="col-span-full text-center">
+                    <div className="text-center col-span-full">
                         <p className="text-sm text-gray-500">
                             No data found
                         </p>
@@ -70,7 +70,7 @@ const Home: React.FC = () => {
                 )}
             </div>
 
-            <div className="flex items-center gap-4 justify-center mt-4">
+            <div className="flex items-center justify-center gap-4 mt-4">
                 <Button
                     onClick={() => setPage((prev) => prev - 1)}
                     disabled={page === 1}

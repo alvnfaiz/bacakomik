@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight, Loader } from "react-feather"
 import Card from "../components/Card"
 import Button from "../components/Button"
 
-const ChapterPage: React.FC = () => {
+const BookmarkPage: React.FC = () => {
     const params = useParams()
     const [manga, setManga] = useState<Manga | null>(null)
 
@@ -132,7 +132,7 @@ export const CardCoy: React.FC<{
             <Card>
                 <div className="flex items-center justify-between gap-4">
                     <img
-                        src={manga.thumbnail?manga.thumbnail:`https://placehold.co/200x300/fff/0ea5e9?text=${manga.title}`}
+                        src={manga?.thumbnail}
                         about={manga?.title}
                         className="flex-shrink-0 rounded-lg w-14"
                     />
@@ -186,4 +186,4 @@ export const CardCoy: React.FC<{
         )
     }
 
-export default ChapterPage
+export default BookmarkPage

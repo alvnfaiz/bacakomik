@@ -33,7 +33,7 @@ const MangaPage: React.FC = () => {
 
     if (isLoading) {
         return (
-            <div className="min-h-screen w-full flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center w-full min-h-screen">
                 <Loader className="animate-spin" />
             </div>
         )
@@ -42,7 +42,7 @@ const MangaPage: React.FC = () => {
     if (manga === null) {
         return (
             <GuestLayout>
-                <div className="min-h-screen w-full flex flex-col items-center justify-center">
+                <div className="flex flex-col items-center justify-center w-full min-h-screen">
                     <p className="text-2xl font-bold">
                         Manga Not Found
                     </p>
@@ -55,21 +55,21 @@ const MangaPage: React.FC = () => {
         <GuestLayout>
             <div className="flex flex-col gap-4">
                 <Card>
-                    <div className="flex items-start md:gap-8 gap-4 md:flex-row flex-col">
-                        <div className="w-fit flex-shrink-0">
+                    <div className="flex flex-col items-start gap-4 md:gap-8 md:flex-row">
+                        <div className="flex-shrink-0 w-fit">
                             <picture className="relative">
                                 <img
-                                    src={manga?.thumbnail}
+                                    src={manga.thumbnail?manga.thumbnail:`https://placehold.co/200x300/fff/0ea5e9?text=${manga.title}`}
                                     alt={manga?.title}
-                                    className="rounded-lg"
+                                    className="h-64 rounded-lg"
                                 />
-                                <div className="absolute top-0 left-0 bg-gradient-to-r from-indigo-900 to-neutral-500 p-1 rounded-lg text-white font-bold">
+                                <div className="absolute top-0 left-0 p-1 font-bold text-white rounded-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
                                     {manga?.type}
                                 </div>
                             </picture>
                         </div>
 
-                        <div className="w-full flex-grow">
+                        <div className="flex-grow w-full">
                             <h1 className="text-2xl font-bold">
                                 {manga?.title}
                             </h1>
@@ -111,7 +111,7 @@ const MangaPage: React.FC = () => {
                             <Link
                                 key={index}
                                 to={`/manga/${source}/${url}/${item.url}`}
-                                className="flex items-center gap-4 p-2 px-4 border-2 border-transparent hover:border-black hover:bg-gray-100 rounded-lg"
+                                className="flex items-center gap-4 p-2 px-4 border-2 border-transparent rounded-lg hover:border-black hover:bg-gray-100"
                             >
                                 <Book />
                                 <p className="text-sm font-semibold">
