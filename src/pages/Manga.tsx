@@ -168,7 +168,9 @@ const MangaPage: React.FC = () => {
                         </div>
                     </div>
                 </Card>
-
+                <Link to="https://trakteer.id/sengkomik" target="_blank">
+                <div className="w-full py-6 text-xl text-center text-white bg-blue-500 rounded-md hover:bg-blue-200 hover:text-blue-500">Support di Trakteer</div>
+            </Link>
                 <Card>
                     <h1 className="text-xl font-bold">
                         Chapters

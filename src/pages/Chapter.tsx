@@ -6,6 +6,7 @@ import { useQueries } from "@tanstack/react-query"
 import { ChevronLeft, ChevronRight, Loader } from "react-feather"
 import Card from "../components/Card"
 import Button from "../components/Button"
+import {Link} from "react-router-dom";
 
 const ChapterPage: React.FC = () => {
     const params = useParams()
@@ -72,7 +73,9 @@ const ChapterPage: React.FC = () => {
             <h1 className="py-4 text-xl font-bold text-center">
                 {chapterData.data.title}
             </h1>
-
+            <Link to="https://trakteer.id/sengkomik" target="_blank">
+                <div className="w-full py-6 text-xl text-center text-white bg-blue-500 rounded-md hover:bg-blue-200 hover:text-blue-500">Support di Trakteer</div>
+            </Link>
             <div className="w-full py-4">
                 <div className="flex flex-col items-center justify-center">
                     {chapterData.data.images.map((image, index) => (
@@ -85,7 +88,9 @@ const ChapterPage: React.FC = () => {
                     ))}
                 </div>
             </div>
-
+            <Link to="https://trakteer.id/sengkomik" target="_blank">
+                <div className="w-full py-6 text-xl text-center text-white bg-blue-500 rounded-md hover:bg-blue-200 hover:text-blue-500">Support di Trakteer</div>
+            </Link>
             {manga && (
                 <CardCoy
                     manga={manga}
