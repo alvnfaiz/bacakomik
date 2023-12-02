@@ -115,7 +115,7 @@ const MangaPage: React.FC = () => {
         
                             <Button
                                 type="button"
-                                className={`flex gap-4 w-48 my-1 ${!isBookmarked ? "bg-blue-500 hover:bg-blue-600" : "bg-red-100 hover:bg-red-500 text-red-500 hover:text-white"}`}
+                                className={`flex gap-4 w-48 my-1 ${!isBookmarked ? "bg-blue-500 hover:bg-blue-600 text-white" : "bg-red-100 hover:bg-red-500 text-red-500 hover:text-white"}`}
                                 onClick={() => {
                                     handleBookmarkClick();
                                 }}
