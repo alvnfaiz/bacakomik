@@ -16,7 +16,9 @@ export interface Manga {
     author: string
     status: string
     genres: string[]
-    chapters: ChapterManga[]
+    chapters: ChapterManga[],
+    url: string
+    source: string
 }
 
 export interface ChapterManga {
