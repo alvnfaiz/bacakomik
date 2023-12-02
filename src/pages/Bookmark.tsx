@@ -34,7 +34,7 @@ const Bookmark: React.FC = () => {
                         </p>
                     </div>
                 ) : (
-                    <div className="flex flex-wrap gap-6">
+                    <div className="flex flex-wrap justify-between gap-y-6">
                         {mangas.map((manga, index) => (
                             <CardManga key={index} manga={manga} />
                         ))}
