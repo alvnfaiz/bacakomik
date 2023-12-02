@@ -6,12 +6,49 @@ import ScrapeService, { Manga } from "../services/scrape.service"
 import { Book, Loader } from "react-feather"
 import Card from "../components/Card"
 import { Link } from "react-router-dom"
+import Button from "../components/Button"
 
 const MangaPage: React.FC = () => {
     const params = useParams()
     const [manga, setManga] = useState<Manga | null>(null)
 
     const { source, url } = params as { source: string, url: string }
+
+    // add state [isBookmarked, setIsBookmarked] to boolean
+    const [isBookmarked, setIsBookmarked] = useState(false)
+    // use effect the isBookmarked
+    
+
+    // check if manga already bookmarked
+
+
+    const handleBookmarkClick = () => {
+        // Dapatkan array manga dari localStorage atau gunakan array kosong jika tidak ada
+        const storedMangas = JSON.parse(localStorage.getItem("mangas")) || [];
+    
+        // Periksa apakah manga sudah ada dalam array atau belum
+        const isMangaAlreadyBookmarked = storedMangas.some((m) => m.url === manga.url);
+        // add url to manga object
+        manga.url = url
+        manga.source = source
+    
+        // Jika manga belum ada, tambahkan ke dalam array jika sudah ada
+        if (!isMangaAlreadyBookmarked) {
+          const updatedMangas = [...storedMangas, manga];
+    
+          // Simpan kembali array manga ke localStorage mangas[source]
+          localStorage.setItem("mangas", JSON.stringify(updatedMangas));
+        }else{
+          // Jika manga sudah ada, hapus dari array
+          if (isMangaAlreadyBookmarked) {
+            const updatedMangas = storedMangas.filter((m) => m.url !== manga.url);
+            localStorage.setItem("mangas", JSON.stringify(updatedMangas));
+          }
+        }
+        setIsBookmarked(
+          !isBookmarked
+        )
+      };
 
     const { data, isLoading } = useQuery({
         queryKey: [
@@ -30,6 +67,15 @@ const MangaPage: React.FC = () => {
             setManga(data.data)
         }
     }, [data])
+    useEffect(()=>{
+        if(manga){
+            manga.url = url
+            manga.source = source
+        }
+        setIsBookmarked(JSON.parse(localStorage.getItem("mangas") || "[]").some(
+            (m) => m.url === manga?.url
+        ))
+    }, [manga])
 
     if (isLoading) {
         return (
@@ -57,16 +103,26 @@ const MangaPage: React.FC = () => {
                 <Card>
                     <div className="flex flex-col items-start gap-4 md:gap-8 md:flex-row">
                         <div className="flex-shrink-0 w-fit">
-                            <picture className="relative">
+                            <div className="relative">
                                 <img
                                     src={manga?.thumbnail?manga?.thumbnail:`https://placehold.co/200x300/fff/0ea5e9?text=${manga?.title}`}
                                     alt={manga?.title}
-                                    className="h-64 rounded-lg"
+                                    className="object-cover w-48 h-64 mx-0 rounded-lg"
                                 />
                                 <div className="absolute top-0 left-0 p-1 font-bold text-white rounded-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
                                     {manga?.type}
                                 </div>
-                            </picture>
+                            </div>
+        
+                                    <Button
+                                        type="button"
+                                        className={`w-48 my-1 ${!isBookmarked ? "bg-green-500 hover:bg-green-600" : "bg-red-500 hover:bg-red-600"}`}
+                                        onClick={() => {
+                                            handleBookmarkClick();
+                                        }}
+                                    >
+                                        {!isBookmarked ? "Add Bookmark" : "Hapus Bookmark"}
+                                    </Button>
                         </div>
 
                         <div className="flex-grow w-full">
