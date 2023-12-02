@@ -27,10 +27,7 @@ const MangaPage: React.FC = () => {
         const storedMangas = JSON.parse(localStorage.getItem("mangas")) || [];
     
         // Periksa apakah manga sudah ada dalam array atau belum
-        const isMangaAlreadyBookmarked = storedMangas.some((m) => m.url === manga.url);
-        // add url to manga object
-        manga.url = url
-        manga.source = source
+        const isMangaAlreadyBookmarked = storedMangas.some((m) => m?.url === manga?.url);
     
         // Jika manga belum ada, tambahkan ke dalam array jika sudah ada
         if (!isMangaAlreadyBookmarked) {
@@ -41,7 +38,7 @@ const MangaPage: React.FC = () => {
         }else{
           // Jika manga sudah ada, hapus dari array
           if (isMangaAlreadyBookmarked) {
-            const updatedMangas = storedMangas.filter((m) => m.url !== manga.url);
+            const updatedMangas = storedMangas.filter((m) => m?.url !== manga?.url);
             localStorage.setItem("mangas", JSON.stringify(updatedMangas));
           }
         }
@@ -73,7 +70,7 @@ const MangaPage: React.FC = () => {
             manga.source = source
         }
         setIsBookmarked(JSON.parse(localStorage.getItem("mangas") || "[]").some(
-            (m) => m.url === manga?.url
+            (m) => m?.url === manga?.url
         ))
     }, [manga])
 
