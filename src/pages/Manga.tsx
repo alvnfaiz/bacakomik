@@ -101,7 +101,7 @@ const MangaPage: React.FC = () => {
             <div className="flex flex-col gap-4">
                 <Card>
                     <div className="flex flex-col items-start gap-4 md:gap-8 md:flex-row">
-                        <div className="flex-shrink-0 w-fit">
+                        <div className="flex-shrink-0 mx-auto w-fit">
                             <div className="relative">
                                 <img
                                     src={manga?.thumbnail?manga?.thumbnail:`https://placehold.co/200x300/fff/0ea5e9?text=${manga?.title}`}
