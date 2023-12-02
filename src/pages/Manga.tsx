@@ -59,7 +59,7 @@ const MangaPage: React.FC = () => {
                         <div className="flex-shrink-0 w-fit">
                             <picture className="relative">
                                 <img
-                                    src={manga.thumbnail?manga.thumbnail:`https://placehold.co/200x300/fff/0ea5e9?text=${manga.title}`}
+                                    src={manga?.thumbnail?manga?.thumbnail:`https://placehold.co/200x300/fff/0ea5e9?text=${manga?.title}`}
                                     alt={manga?.title}
                                     className="h-64 rounded-lg"
                                 />
