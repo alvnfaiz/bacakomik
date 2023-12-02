@@ -60,7 +60,7 @@ const ChapterPage: React.FC = () => {
     }
 
     return chapterData && (
-        <GuestLayout className="px-0">
+        <GuestLayout>
             {manga && (
                 <CardCoy
                     manga={manga}

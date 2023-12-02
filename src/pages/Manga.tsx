@@ -7,7 +7,6 @@ import { Book, Loader } from "react-feather"
 import Card from "../components/Card"
 import { Link } from "react-router-dom"
 import Button from "../components/Button"
-import { Helmet } from 'react-helmet';
 const MangaPage: React.FC = () => {
     const params = useParams()
     const [manga, setManga] = useState<Manga | null>(null)
