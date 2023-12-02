@@ -1,54 +1,45 @@
-import { useParams } from "react-router"
-import GuestLayout from "../layouts/GuestLayout"
 import { useEffect, useState } from "react"
-import ScrapeService, { Manga } from "../services/scrape.service"
-import { useQueries } from "@tanstack/react-query"
-import { ChevronLeft, ChevronRight, Loader } from "react-feather"
-import Card from "../components/Card"
+import GuestLayout from "../layouts/GuestLayout"
+import ScrapeService, { ListManga } from "../services/scrape.service"
+import { useQuery } from "@tanstack/react-query"
+import { useSearchParams } from "react-router-dom"
 import Button from "../components/Button"
+import CardManga from "../components/CardManga"
+import { Loader } from "react-feather"
 
-const BookmarkPage: React.FC = () => {
-    const params = useParams()
-    const [manga, setManga] = useState<Manga | null>(null)
+const Bookmark: React.FC = () => {
+    const [mangas, setMangas] = useState<ListManga[]>([])
+    const [page, setPage] = useState<number>(1)
 
-    const { source, url, chapter } = params as { source: string, url: string, chapter: string }
+    const [source, setSource] = useState<string | null>(null)
 
-    const datas = useQueries({
-        queries: [
-            {
-                queryKey: [
-                    "manga",
-                    source,
-                    url,
-                ],
-                queryFn: () => ScrapeService.detail({
-                    source,
-                    url
-                })
-            },
-            {
-                queryKey: [
-                    "chapter",
-                    source,
-                    url,
-                    chapter
-                ],
-                queryFn: () => ScrapeService.chapter({
-                    source,
-                    url: chapter
-                })
-            }
-        ]
+    const [searchParams] = useSearchParams()
+    const [search] = useState<string>(searchParams.get("search") || "")
+
+    const { data, isLoading } = useQuery({
+        queryKey: [
+            "mangas",
+            page,
+            search,
+            source,
+        ],
+        queryFn: () => ScrapeService.manga({
+            page,
+            source: source!,
+            search,
+        }),
+        enabled: source !== null
     })
 
-    const { data: mangaData } = datas[0]
-    const { data: chapterData, isLoading } = datas[1]
+    useEffect(() => {
+        setSource(localStorage.getItem("source") || "komikcast")
+    }, [])
 
     useEffect(() => {
-        if (mangaData) {
-            setManga(mangaData.data)
+        if (data) {
+            setMangas(data.data)
         }
-    }, [mangaData, chapterData])
+    }, [data])
 
     if (isLoading) {
         return (
@@ -58,132 +49,44 @@ const BookmarkPage: React.FC = () => {
         )
     }
 
-    return chapterData && (
+    return (
         <GuestLayout>
-            {manga && (
-                <CardCoy
-                    manga={manga}
-                    chapter={chapter}
-                    source={source}
-                    url={url}
-                />
-            )}
-
-            <h1 className="py-4 text-xl font-bold text-center">
-                {chapterData.data.title}
+            <h1 className="text-xl font-bold">
+                Projects Update
             </h1>
 
-            <div className="w-full py-4">
-                <div className="flex flex-col items-center justify-center">
-                    {chapterData.data.images.map((image, index) => (
-                        <img
-                            key={index}
-                            src={image}
-                            alt={chapterData.data.title}
-                            className="w-full"
-                        />
+            <div className="w-full mt-4">
+                <div className="flex flex-wrap justify-between gap-y-6">
+                    {mangas.map((manga, index) => (
+                        <CardManga key={index} manga={manga} />
                     ))}
                 </div>
+                {mangas.length === 0 && (
+                    <div className="text-center col-span-full">
+                        <p className="text-sm text-gray-500">
+                            No data found
+                        </p>
+                    </div>
+                )}
             </div>
 
-            {manga && (
-                <CardCoy
-                    manga={manga}
-                    chapter={chapter}
-                    source={source}
-                    url={url}
-                />
-            )}
+            <div className="flex items-center justify-center gap-4 mt-4">
+                <Button
+                    onClick={() => setPage((prev) => prev - 1)}
+                    disabled={page === 1}
+                >
+                    Previous
+                </Button>
+                <Button
+                    type="button"
+                    onClick={() => setPage((prev) => prev + 1)}
+                    disabled={isLoading || data && data?.data.length === 0}
+                >
+                    Next
+                </Button>
+            </div>
         </GuestLayout>
     )
 }
 
-export const CardCoy: React.FC<{
-    manga: Manga | null
-    chapter: string
-    source: string,
-    url: string,
-}> = ({
-    manga,
-    chapter,
-    source,
-    url
-}) => {
-        const [nextURL, setNextURL] = useState<string | null>(null)
-        const [prevURL, setPrevURL] = useState<string | null>(null)
-
-        useEffect(() => {
-            if (manga) {
-                const index = manga.chapters.findIndex((item) => item.url === chapter)
-
-                if (index !== -1) {
-                    if (index !== 0) {
-                        setPrevURL(manga.chapters[index - 1].url)
-                    }
-
-                    if (index !== manga.chapters.length - 1) {
-                        setNextURL(manga.chapters[index + 1].url)
-                    }
-                }
-            }
-        }, [])
-
-        return (
-            <Card>
-                <div className="flex items-center justify-between gap-4">
-                    <img
-                        src={manga?.thumbnail}
-                        about={manga?.title}
-                        className="flex-shrink-0 rounded-lg w-14"
-                    />
-
-                    <div className="flex flex-col flex-grow">
-                        <p className="text-lg font-bold">
-                            {manga?.title}
-                        </p>
-                        <p className="text-xs font-semibold">
-                            Total Chapter {manga?.chapters.length}
-                        </p>
-
-                        <p className="mt-4">
-                            <select
-                                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
-                                onChange={(e) => window.location.href = `/manga/${source}/${url}/${e.target.value}`}
-                            >
-                                {manga?.chapters.map((item, index) => (
-                                    <option
-                                        key={index}
-                                        value={item.url}
-                                        selected={item.url === chapter}
-                                    >
-                                        {item.title}
-                                    </option>
-                                ))}
-                            </select>
-                        </p>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                        <Button
-                            type="button"
-                            disabled={prevURL === null}
-                            onClick={() => window.location.href = `/manga/${source}/${url}/${prevURL}`}
-                            className="!px-2"
-                        >
-                            <ChevronLeft size={20} />
-                        </Button>
-                        <Button
-                            type="button"
-                            disabled={nextURL === null}
-                            onClick={() => window.location.href = `/manga/${source}/${url}/${nextURL}`}
-                            className="!px-2"
-                        >
-                            <ChevronRight size={20} />
-                        </Button>
-                    </div>
-                </div>
-            </Card>
-        )
-    }
-
-export default BookmarkPage
+export default Bookmark

@@ -2,6 +2,7 @@ import type { RouteProps } from "react-router";
 import Home from "../pages/Home";
 import Manga from "../pages/Manga";
 import ChapterPage from "../pages/Chapter";
+import Bookmark from "../pages/Bookmark";
 
 type NewProps = Record<string, RouteProps>;
 
@@ -27,6 +28,11 @@ const routes = createConfs({
     chapter: {
         path: "/manga/:source/:url/:chapter",
         element: <ChapterPage />,
+        needAuth: true,
+    },
+    bookmark: {
+        path: "/bookmark",
+        element: <Bookmark />,
         needAuth: true,
     }
 })
