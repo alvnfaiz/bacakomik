@@ -11,10 +11,9 @@ const Search: React.FC = () => {
     const [mangas, setMangas] = useState<ListManga[]>([])
     const [page, setPage] = useState<number>(1)
 
-    const [sources, setSources] = useState<string | null>(null)
+    const [sources, setSources] = useState<string[] | null>(null)
 
     const params = useParams<{ query: string }>();
-    const { query } = params;
 
     const { data, isLoading } = useQuery({
           queryKey: [
@@ -32,29 +31,26 @@ const Search: React.FC = () => {
 
     useEffect(() => {
       if (sources) {
-          const fetchPromises = sources.map((source) => {
+          const fetchPromises = sources.map((source:string) => {
               return ScrapeService.manga({
                   page,
                   search: params.query,
                   source,
               }).catch((error) => {
                   // Handle individual request errors, e.g., log the error
-                  console.error(`Error fetching manga data for ${source}:`, error);
                   return { data: [] }; // Provide a default result to continue with other requests
               });
           });
   
           // Use Promise.all to wait for all requests to complete
           Promise.all(fetchPromises)
-              .then((results) => {
+              .then((results:any) => {
                   console.log(results);
                   // Flatten the array of arrays into a single array of mangas
                   const allMangas = results.flatMap((result) => result.data);
                   setMangas(allMangas);
               })
               .catch((error) => {
-                  // Handle errors from the Promise.all itself, if needed
-                  console.error("Error fetching manga data:", error);
               });
       }
   }, [sources, params.query, page]);
