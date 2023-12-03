@@ -48,7 +48,7 @@ const Search: React.FC = () => {
               .then((results:any) => {
                   console.log(results);
                   // Flatten the array of arrays into a single array of mangas
-                  const allMangas = results.flatMap((result) => result.data);
+                  const allMangas = results.flatMap((result:any) => result.data);
                   setMangas(allMangas);
               })
       }
