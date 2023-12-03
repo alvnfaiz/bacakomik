@@ -39,7 +39,7 @@ const SearchButton: React.FC = () => {
                         defaultValue={searchParams.get("search") || ""}
                         onKeyUp={(e) => {
                             if (e.key === "Enter") {
-                                window.location.href = `/?search=${e.currentTarget.value}`
+                                window.location.href = `/search/${e.currentTarget.value}`
                             }
                         }}
                     />
