@@ -37,7 +37,8 @@ const Search: React.FC = () => {
                   search: params.query,
                   source,
               }).catch((error) => {
-                  // Handle individual request errors, e.g., log the error
+                // downt show the error
+                console.error(error);
                   return { data: [] }; // Provide a default result to continue with other requests
               });
           });
@@ -50,8 +51,6 @@ const Search: React.FC = () => {
                   const allMangas = results.flatMap((result) => result.data);
                   setMangas(allMangas);
               })
-              .catch((error) => {
-              });
       }
   }, [sources, params.query, page]);
 
