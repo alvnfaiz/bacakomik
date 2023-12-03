@@ -3,6 +3,7 @@ import Home from "../pages/Home";
 import Manga from "../pages/Manga";
 import ChapterPage from "../pages/Chapter";
 import Bookmark from "../pages/Bookmark";
+import Search from "../pages/Search";
 
 type NewProps = Record<string, RouteProps>;
 
@@ -33,6 +34,16 @@ const routes = createConfs({
     bookmark: {
         path: "/bookmark",
         element: <Bookmark />,
+        needAuth: true,
+    },
+    search: {
+        path: "/search/:query",
+        element: <Search />,
+        needAuth: true,
+    },
+    emptysearch: {
+        path: "/search/:query",
+        element: <Home />,
         needAuth: true,
     }
 })
